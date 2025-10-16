@@ -1,3 +1,6 @@
 spring:
   application.name: origin-store
-
+  docker.compose:
+    profiles.active: origin-store
+  aop:
+    proxy-target-class: false
