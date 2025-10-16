@@ -4,10 +4,11 @@
 kotlin = "2.2.20"
 spring-boot = "3.5.6"
 
+assertj-db = "3.0.0"
 mockito-kotlin = "6.0.0"
 
 [libraries]
-
+assertj-db = { group = "org.assertj", name = "assertj-db", version.ref = "assertj-db" }
 mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito-kotlin" }
 
 [plugins]

@@ -10,6 +10,7 @@ dependencies {
 
     testImplementation("org.springframework:spring-webflux")
     testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.assertj.db)
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
 }
