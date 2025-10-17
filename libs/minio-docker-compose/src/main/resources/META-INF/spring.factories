@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.service.connection.ConnectionDetailsFactory=\
+ru.razornd.docker.compose.service.connection.MinioAwsDockerConnectionFactory

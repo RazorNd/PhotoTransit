@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.spring.boot) apply false
 }
 
-subprojects {
+allprojects {
     repositories {
         mavenCentral()
     }

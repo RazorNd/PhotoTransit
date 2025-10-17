@@ -9,3 +9,4 @@
 rootProject.name = "PhotoTransit"
 
 include(":server", ":server:origin-store")
+include(":libs", ":libs:minio-docker-compose")

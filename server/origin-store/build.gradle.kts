@@ -10,6 +10,7 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
 
     developmentOnly("org.springframework.boot:spring-boot-docker-compose")
+    developmentOnly(project(":libs:minio-docker-compose"))
 
     testImplementation("org.springframework:spring-webflux")
     testImplementation(libs.mockito.kotlin)

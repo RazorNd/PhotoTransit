@@ -11,6 +11,7 @@ mockito-kotlin = "6.0.0"
 testcontainers-minio = "2.0.1"
 
 [libraries]
+spring-boot-dependencies = { group = "org.springframework.boot", name = "spring-boot-dependencies", version.ref = "spring-boot" }
 spring-cloud-aws-dependencies = { group = "io.awspring.cloud", name = "spring-cloud-aws-dependencies", version.ref = "spring-cloud-aws" }
 
 assertj-db = { group = "org.assertj", name = "assertj-db", version.ref = "assertj-db" }
