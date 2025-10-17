@@ -1,6 +1,5 @@
 package ru.razornd.phototransit.storage
 
-import TestcontainersConfiguration
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.db.api.Assertions.assertThat
 import org.assertj.db.type.AssertDbConnection
@@ -10,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest
 import org.springframework.context.annotation.Import
 import org.springframework.test.context.jdbc.Sql
 import ru.razornd.phototransit.PhotoId
+import ru.razornd.phototransit.PostgresTestcontainersConfiguration
 import ru.razornd.phototransit.UserId
 import ru.razornd.phototransit.model.Photo
 import ru.razornd.phototransit.model.PhotoFile
@@ -18,7 +18,7 @@ import java.sql.Timestamp
 import java.time.Instant
 
 @JdbcTest
-@Import(JdbcPhotoRepository::class, TestcontainersConfiguration::class, AssertjDbConfiguration::class)
+@Import(JdbcPhotoRepository::class, PostgresTestcontainersConfiguration::class, AssertjDbConfiguration::class)
 open class JdbcPhotoRepositoryTest {
 
     @Autowired
