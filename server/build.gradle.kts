@@ -10,6 +10,7 @@ subprojects {
 
 
     val implementation by configurations
+    val annotationProcessor by configurations
     val testImplementation by configurations
     val testRuntimeOnly by configurations
 
@@ -18,6 +19,8 @@ subprojects {
     dependencies {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.springframework.boot:spring-boot-starter-actuator")
+
+        annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         testImplementation("org.springframework.boot:spring-boot-testcontainers")

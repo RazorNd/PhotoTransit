@@ -4,3 +4,11 @@ spring:
     profiles.active: origin-store
   aop:
     proxy-target-class: false
+
+  cloud:
+    aws:
+      credentials:
+        access-key: accessKey123
+        secret-key: verySecretKey123
+      s3:
+        endpoint: http://localhost:4566

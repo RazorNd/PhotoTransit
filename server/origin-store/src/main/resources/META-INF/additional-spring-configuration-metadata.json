@@ -1,0 +1,10 @@
+{
+  "properties": [
+    {
+      "defaultValue": "photo-origins",
+      "name": "file.storage.s3.bucket",
+      "description": "Bucket name where files will be stored.",
+      "type": "java.lang.String"
+    }
+  ]
+}
