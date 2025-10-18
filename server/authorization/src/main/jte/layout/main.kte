@@ -1,0 +1,25 @@
+@import gg.jte.Content
+@import org.springframework.security.web.csrf.CsrfToken
+
+@param title: String
+@param page: Content
+@param script: Content? = null
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/webjars/source-sans-pro/source-sans-pro.css" />
+    <title>${title}</title>
+</head>
+<body>
+<div class="container">
+    ${page}
+</div>
+@if(script != null)
+    ${script}
+@endif
+</body>
+</html>

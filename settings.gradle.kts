@@ -8,5 +8,5 @@
 
 rootProject.name = "PhotoTransit"
 
-include(":server", ":server:origin-store")
-include(":libs", ":libs:minio-docker-compose")
+include("server", "server:origin-store", "server:authorization")
+include("libs", "libs:minio-docker-compose")

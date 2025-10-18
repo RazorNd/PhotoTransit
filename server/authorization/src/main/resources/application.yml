@@ -1,0 +1,27 @@
+spring:
+  application.name: authorization
+  docker.compose:
+    profiles.active: authorization
+  aop:
+    proxy-target-class: false
+
+  security:
+    user:
+      name: razornd
+      password: 123
+    oauth2:
+      authorizationserver:
+        client:
+          cli-app:
+            require-proof-key: true
+            registration:
+              client-id: phototransit-cli
+              client-name: PhotoTransit CLI
+              client-authentication-methods: [ none ]
+              authorization-grant-types: [ urn:ietf:params:oauth:grant-type:device_code ]
+
+
+
+gg.jte:
+  use-precompiled-templates: true
+  template-suffix: .kte

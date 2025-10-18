@@ -1,0 +1,358 @@
+/*
+  main.css — refined by a senior front-end approach
+  - Clear design tokens (colors, spacing, radii, shadows, typography, transitions)
+  - Strong base layer (box-sizing, resets, accessibility, motion-reduce)
+  - Responsive layout container and card
+  - Componentized form controls and buttons with states
+  - Dark theme first with good contrast
+*/
+
+/* =========================
+   1) Design Tokens
+   ========================= */
+:root {
+    /* Colors */
+    --color-surface: #161616;
+    --color-surface-variant: #1f1f1f;
+    --color-surface-container: #353535;
+    --color-text: #ffffff;
+    --color-text-muted: #94a3b8; /* slate-400 */
+    --color-text-subtle: #cbd5e1; /* slate-300 */
+
+    --color-input-bg: #ffffff;
+    --color-input-text: #0f172a; /* slate-900 */
+    --color-input-placeholder: #64748b; /* slate-500 */
+    --color-input-border: rgba(15, 23, 42, 0.08);
+    --color-ring: rgba(134, 239, 172, 0.45); /* green-200 @ 45% */
+
+    --color-primary: #86efac; /* green-300 */
+    --color-primary-text: #1f2937; /* gray-800 */
+    --color-primary-hover: #6ee7b7; /* green-300 slightly darker */
+    --color-primary-active: #34d399; /* green-400 */
+    --color-primary-disabled: #a7f3d0; /* green-200 */
+
+    /* Spacing scale (4px base) */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --space-10: 40px;
+
+    /* Radii */
+    --radius-s: 8px;
+    --radius-m: 16px;
+    --radius-l: 24px;
+    --radius-pill: 9999px;
+
+    /* Typography */
+    --font-family: "Source Sans Pro", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    --font-size-base: 14px;
+    --line-height-base: 20px;
+    --font-weight-regular: 400;
+    --font-weight-semibold: 600;
+
+    /* Effects */
+    --shadow-elev-1: 0 1px 2px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.25);
+    --transition-fast: 120ms ease;
+}
+
+/* =========================
+   2) Base Layer / Reset
+   ========================= */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    color-scheme: dark;
+}
+
+body {
+    min-height: 100svh; /* Mobile-friendly viewport */
+    margin: 0;
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+img, svg, video {
+    display: block;
+    max-width: 100%;
+}
+
+/* Links */
+a {
+    color: inherit;
+    text-decoration-color: rgba(255, 255, 255, 0.25);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Focus styles */
+:focus {
+    outline: none;
+}
+
+:focus-visible {
+    outline: 3px solid var(--color-ring);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Motion preference */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* =========================
+   3) Layout
+   ========================= */
+.container {
+    min-height: inherit; /* match body */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-4);
+}
+
+/* Card */
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    padding: var(--space-10);
+    background: var(--color-surface-container);
+    border-radius: var(--radius-l);
+    box-shadow: var(--shadow-elev-1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.card.login { /* keep class for specificity; no positional hacks */
+}
+
+.card .title {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: var(--font-weight-semibold);
+}
+
+/* =========================
+   4) Forms
+   ========================= */
+.card form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-6);
+}
+
+.card form label {
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--color-text-muted);
+}
+
+.card form input {
+    width: 100%;
+    height: 40px;
+    padding: 10px 12px;
+    border-radius: var(--radius-s);
+    border: 1px solid var(--color-input-border);
+    background-color: var(--color-input-bg);
+    color: var(--color-input-text);
+    line-height: 20px;
+    transition: box-shadow var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.card form input::placeholder {
+    color: var(--color-input-placeholder);
+}
+
+.card form input:hover {
+    border-color: rgba(15, 23, 42, 0.16);
+}
+
+.card form input:focus-visible {
+    border-color: var(--color-primary-active);
+    box-shadow: 0 0 0 3px var(--color-ring);
+}
+
+.card form input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* =========================
+   5) Buttons
+   ========================= */
+button.primary {
+    width: 100%;
+    height: 44px;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-primary);
+    color: var(--color-primary-text);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+button.primary:hover {
+    background-color: var(--color-primary-hover);
+}
+
+button.primary:active {
+    background-color: var(--color-primary-active);
+    transform: translateY(0.5px);
+}
+
+button.primary:disabled {
+    background-color: var(--color-primary-disabled);
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+button.primary:focus-visible {
+    box-shadow: 0 0 0 3px var(--color-ring);
+}
+
+/* Secondary button */
+button.btn-secondary {
+    height: 44px;
+    border-radius: var(--radius-pill);
+    padding: 0 var(--space-4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: transparent;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+button.btn-secondary:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+button.btn-secondary:active {
+    transform: translateY(0.5px);
+}
+
+button.btn-secondary:focus-visible {
+    box-shadow: 0 0 0 3px var(--color-ring);
+}
+
+/* =========================
+   6) Footer links
+   ========================= */
+.login-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    color: var(--color-text-muted);
+    font-size: 12px;
+    gap: var(--space-4);
+}
+
+.login-footer a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+}
+
+.login-footer a:focus-visible {
+    outline: 3px solid var(--color-ring);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* =========================
+   6.1) Alerts
+   ========================= */
+.alert {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-s);
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.alert.error {
+    background: rgba(239, 68, 68, 0.15); /* red-500 @ 15% */
+    color: #fecaca; /* red-200 */
+    border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+/* =========================
+   7) Responsive tweaks
+   ========================= */
+@media (max-width: 420px) {
+    .card {
+        padding: var(--space-8);
+    }
+}
+
+
+/* =========================
+   8) Error page styles
+   ========================= */
+
+.card.card-error {
+    max-width: 600px;
+}
+
+/* Generic panel for detail blocks */
+.panel {
+    background: var(--color-surface-variant);
+    border-radius: var(--radius-m);
+    padding: var(--space-4);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.panel-title {
+    color: var(--color-text-subtle);
+    margin-bottom: var(--space-2);
+    font-weight: var(--font-weight-semibold);
+}
+
+.description-grid {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: var(--space-2) var(--space-4);
+    color: var(--color-text-muted);
+}
+
+/* Form actions row for cards that need horizontal buttons */
+.card .actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+}
+
+@media (max-width: 420px) {
+    .card .actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}

@@ -32,3 +32,19 @@ services:
       timeout: 3s
       retries: 5
       start_period: 5s
+  authorization-database:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_USER: authorization
+      POSTGRES_PASSWORD: authorization
+      POSTGRES_DB: authorization
+    ports:
+      - "25343:5432"
+    profiles:
+      - authorization
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
