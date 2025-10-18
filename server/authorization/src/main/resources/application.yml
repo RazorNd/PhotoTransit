@@ -5,10 +5,14 @@ spring:
   aop:
     proxy-target-class: false
 
+  session:
+    jdbc:
+      table-name: http_session
+      cleanup-cron: 0 */5 * * * *
   security:
     user:
       name: razornd
-      password: 123
+      password: changeme
     oauth2:
       authorizationserver:
         client:
