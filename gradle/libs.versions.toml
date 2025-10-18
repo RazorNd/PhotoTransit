@@ -11,6 +11,8 @@ assertj-db = "3.0.0"
 mockito-kotlin = "6.0.0"
 testcontainers-minio = "2.0.1"
 
+playwright = "1.56.0"
+
 [libraries]
 spring-boot-dependencies = { group = "org.springframework.boot", name = "spring-boot-dependencies", version.ref = "spring-boot" }
 spring-cloud-aws-dependencies = { group = "io.awspring.cloud", name = "spring-cloud-aws-dependencies", version.ref = "spring-cloud-aws" }
@@ -20,6 +22,7 @@ jte-kotlin = { group = "gg.jte", name = "jte-kotlin", version.ref = "jte" }
 assertj-db = { group = "org.assertj", name = "assertj-db", version.ref = "assertj-db" }
 mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito-kotlin" }
 testcontainers-minio = { module = "org.testcontainers:testcontainers-minio", version.ref = "testcontainers-minio" }
+playwright = { group = "com.microsoft.playwright", name = "playwright", version.ref = "playwright" }
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }

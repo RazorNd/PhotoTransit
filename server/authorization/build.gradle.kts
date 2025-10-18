@@ -21,9 +21,12 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-docker-compose")
     developmentOnly(libs.jte.kotlin)
 
-    testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
+    testImplementation("org.springframework.security:spring-security-test")
+    testImplementation(libs.mockito.kotlin)
+    testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
+    testImplementation(libs.playwright)
 }
 
 jte {

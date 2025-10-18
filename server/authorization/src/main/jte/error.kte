@@ -32,7 +32,8 @@ page =@`
         </div>
 
         <div class="actions">
-            <button class="primary" formaction="#" type="button" onclick="window.location.reload()">Report Error
+            <button class="primary" formaction="#" type="button"
+                    onclick="window.location.href='mailto:phototransit@razornd.ru'">Report Error
             </button>
             <button class="btn-secondary" type="button" onclick="history.back()">Go Back</button>
         </div>
