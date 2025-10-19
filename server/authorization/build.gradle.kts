@@ -24,6 +24,7 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("org.springframework:spring-webflux")
     testImplementation(libs.mockito.kotlin)
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")

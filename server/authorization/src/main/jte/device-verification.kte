@@ -1,0 +1,24 @@
+@import org.springframework.security.web.csrf.CsrfToken
+
+@param csrfToken: CsrfToken
+@param error: Boolean = false
+
+@template.layout.main(
+title = "Device Verification",
+page =@`
+    <div class="card device-code">
+        <span class="title">Enter Your Device Code</span>
+        <p class="muted">Please enter the device code you received to continue with authentication.</p>
+        @if(error)
+            <div class="alert error">The device code is invalid or expired. Please try again.</div>
+        @endif
+        <form action="/oauth2/device_verification" method="post" novalidate>
+            <input type="hidden" name="${csrfToken.parameterName}" value="${csrfToken.token}" />
+            <label for="user_code">Enter device code here</label>
+            <input id="user_code" name="user_code" type="text" autocomplete="one-time-code" maxlength="25"
+                   placeholder="XXXX-XXXX" />
+            <button class="btn-contrast" type="submit">Submit</button>
+        </form>
+    </div>
+`
+)

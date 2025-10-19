@@ -356,3 +356,77 @@ button.btn-secondary:focus-visible {
         align-items: stretch;
     }
 }
+
+
+/* =========================
+   9) Device Code page
+   ========================= */
+
+/* Slightly wider card for the device verification flow */
+.card.device-code {
+    max-width: 640px;
+}
+
+/* Subtle helper/description text inside cards */
+.card .muted {
+    margin-top: calc(var(--space-2) * -1); /* tighten spacing under title */
+    color: var(--color-text-muted);
+}
+
+/* High-contrast call-to-action button (white pill) to match the mock */
+button.btn-contrast {
+    height: 44px;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background-color: #ffffff;
+    color: #0f172a;
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    padding: 0 var(--space-6);
+    transition: background-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+button.btn-contrast:hover {
+    background-color: #f8fafc; /* slate-50 */
+}
+
+button.btn-contrast:active {
+    background-color: #f1f5f9; /* slate-100 */
+    transform: translateY(0.5px);
+}
+
+button.btn-contrast:focus-visible {
+    box-shadow: 0 0 0 3px var(--color-ring);
+}
+
+/* =========================
+   10) Consent page
+   ========================= */
+.card.consent {
+    max-width: 820px;
+    gap: var(--space-6);
+}
+
+.permission-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+.permission-item {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: var(--space-4);
+}
+
+.permission-item:first-child {
+    border-top: 0;
+    padding-top: 0;
+}
+
+.permission-title {
+    font-weight: var(--font-weight-semibold);
+}
+
+.permission-desc {
+    color: var(--color-text-muted);
+}

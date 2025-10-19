@@ -1,0 +1,10 @@
+@template.layout.main(
+title = "Authorization successful",
+page =@`
+    <div class="card">
+        <span class="title">Authorization successful</span>
+        <p class="muted">You have successfully authorized this device. You can now close this window and return to your
+            application.</p>
+    </div>
+`
+)

@@ -13,19 +13,28 @@ spring:
     user:
       name: razornd
       password: changeme
+      roles: admin
     oauth2:
       authorizationserver:
         client:
           cli-app:
-            require-proof-key: true
+            require-proof-key: false
             registration:
               client-id: phototransit-cli
               client-name: PhotoTransit CLI
-              client-authentication-methods: [ none ]
-              authorization-grant-types: [ urn:ietf:params:oauth:grant-type:device_code ]
+              client-secret: '${cli.client.secret}'
+              client-authentication-methods: [ client_secret_basic, client_secret_post ]
+              authorization-grant-types: [ urn:ietf:params:oauth:grant-type:device_code, refresh_token ]
+              scopes:
+                - 'origin-store:photo:upload'
 
 
 
 gg.jte:
   use-precompiled-templates: true
   template-suffix: .kte
+
+
+cli:
+  client:
+    secret: '{noop}changeme'

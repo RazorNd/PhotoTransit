@@ -1,0 +1,51 @@
+@import org.springframework.security.web.csrf.CsrfToken
+
+@param csrfToken: CsrfToken? = null
+@param action: String
+@param clientId: String
+@param clientName: String? = null
+@param state: String
+@param scopes: List<String>
+@param userCode: String? = null
+
+@template.layout.main(
+title = "Consent required",
+page =@`
+    <div class="card consent">
+        <span class="title">Consent required</span>
+        <p class="muted">The application <strong>${clientName ?: clientId}</strong> is requesting access to the
+            following permissions:</p>
+
+        <div class="permission-list">
+            <div class="permission-item">
+                <div class="permission-title">Permission 1: Access Photos</div>
+                <div class="permission-desc">Allows the application to view your photos.</div>
+            </div>
+            <div class="permission-item">
+                <div class="permission-title">Permission 2: Edit Photos</div>
+                <div class="permission-desc">Allows the application to edit your photos.</div>
+            </div>
+            <div class="permission-item">
+                <div class="permission-title">Permission 3: Upload Photos</div>
+                <div class="permission-desc">Allows the application to upload new photos to your library.</div>
+            </div>
+        </div>
+
+        <form class="actions" action="${action}" method="post">
+            @if(csrfToken != null)
+                <input type="hidden" name="${csrfToken.parameterName}" value="${csrfToken.token}" />
+            @endif
+            @if(userCode != null)
+                <input type="hidden" name="user_code" value="${userCode}" />
+            @endif
+            <input type="hidden" name="client_id" value="${clientId}" />
+            <input type="hidden" name="state" value="${state}" />
+            @for(scope in scopes)
+                <input type="hidden" name="scope" value="${scope}" checked />
+            @endfor
+            <button type="submit" name="consent_action" value="approve" class="primary">Approve</button>
+            <button type="submit" name="consent_action" value="deny" class="btn-contrast">Deny</button>
+        </form>
+    </div>
+`
+)
