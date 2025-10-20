@@ -1,0 +1,28 @@
+routes:
+  origin-store: http://origin-store
+
+oauth2:
+  identity-provider:
+    url: http://authorization
+
+spring:
+  application.name: gateway
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${oauth2.identity-provider.url}
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          forwarded:
+            enabled: true
+          routes:
+            - id: origin-store
+              uri: ${routes.origin-store}
+              predicates:
+                - Path=/api/origin-store/**
+              filters:
+                - AddRequestParameter=owner, {subject}

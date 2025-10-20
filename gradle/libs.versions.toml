@@ -3,6 +3,7 @@
 [versions]
 kotlin = "2.2.20"
 spring-boot = "3.5.6"
+spring-cloud = "2025.0.0"
 
 spring-cloud-aws = "3.4.0"
 jte = "3.2.1"
@@ -12,9 +13,11 @@ mockito-kotlin = "6.0.0"
 testcontainers-minio = "2.0.1"
 
 playwright = "1.56.0"
+wiremock-spring-boot = "3.10.6"
 
 [libraries]
 spring-boot-dependencies = { group = "org.springframework.boot", name = "spring-boot-dependencies", version.ref = "spring-boot" }
+spring-cloud-dependencies = { group = "org.springframework.cloud", name = "spring-cloud-dependencies", version.ref = "spring-cloud" }
 spring-cloud-aws-dependencies = { group = "io.awspring.cloud", name = "spring-cloud-aws-dependencies", version.ref = "spring-cloud-aws" }
 jte-spring-starter = { group = "gg.jte", name = "jte-spring-boot-starter-3", version.ref = "jte" }
 jte-kotlin = { group = "gg.jte", name = "jte-kotlin", version.ref = "jte" }
@@ -23,6 +26,7 @@ assertj-db = { group = "org.assertj", name = "assertj-db", version.ref = "assert
 mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito-kotlin" }
 testcontainers-minio = { module = "org.testcontainers:testcontainers-minio", version.ref = "testcontainers-minio" }
 playwright = { group = "com.microsoft.playwright", name = "playwright", version.ref = "playwright" }
+wiremock-integration-spring = { group = "org.wiremock.integrations", name = "wiremock-spring-boot", version.ref = "wiremock-spring-boot" }
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }

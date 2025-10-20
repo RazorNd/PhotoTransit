@@ -1,0 +1,16 @@
+{
+  "properties": [
+    {
+      "name": "routes.origin-store",
+      "description": "Url to origin store service.",
+      "type": "java.lang.String",
+      "defaultValue": "http://origin-store"
+    },
+    {
+      "name": "oauth2.identity-provider.url",
+      "description": "Url to identity provider.",
+      "type": "java.lang.String",
+      "defaultValue": "http://authorization"
+    }
+  ]
+}
