@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 group = "ru.razornd.phototransit"
 
@@ -44,5 +45,18 @@ subprojects {
     tasks.withType<Test> {
         useJUnitPlatform()
         jvmArgs("-javaagent:${mockitoAgent.asPath}")
+    }
+
+    tasks.withType<BootBuildImage> {
+        imageName = "ghcr.io/razornd/phototransit-${project.name}:${project.version}"
+
+        docker {
+            publishRegistry {
+                val registryUsername: String? by project
+                val registryPassword: String? by project
+                username = registryUsername
+                password = registryPassword
+            }
+        }
     }
 }

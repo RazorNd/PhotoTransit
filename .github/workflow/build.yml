@@ -1,0 +1,57 @@
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'liberica'
+          cache: gradle
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Build & Publish Docker Image
+        run: ./gradlew bootBuildImage --publishImage -PregistryUsername=${{ github.actor }} -PregistryPassword=${{ secrets.GITHUB_TOKEN }}
+      - name: Send Telegram Notification (for Success)
+        if: success()
+        uses: appleboy/telegram-action@v1.0.1
+        with:
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          message: |
+            ✅ The build was successful!
+            View the build details here: 
+            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+      - name: Send Telegram Notification (for Failure)
+        if: failure()
+        uses: appleboy/telegram-action@v1.0.1
+        with:
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          message: |
+            ❌ The build failed.
+            Please check the logs for details.
+            View the build details here:
+            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+  dependency-submission:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'liberica'
+      - name: Generate and submit dependency graph
+        uses: gradle/actions/dependency-submission@v4
