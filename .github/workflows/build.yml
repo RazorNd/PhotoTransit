@@ -23,10 +23,11 @@ jobs:
           cache: gradle
       - uses: gradle/actions/setup-gradle@v4
       - name: Build & Publish Docker Image
-        run: ./gradlew bootBuildImage --publishImage \
-          -PregistryUsername=${{ github.actor }} \
-          -PregistryPassword=${{ secrets.GITHUB_TOKEN }} \
-          -PdockerImageTag=${{ steps.vars.outputs.DOCKER_TAG }}
+        run: |
+          ./gradlew bootBuildImage --publishImage \
+            -PregistryUsername=${{ github.actor }} \
+            -PregistryPassword=${{ secrets.GITHUB_TOKEN }} \
+            -PdockerImageTag=${{ steps.vars.outputs.DOCKER_TAG }}
       - name: Send Telegram Notification (for Success)
         if: success()
         uses: appleboy/telegram-action@v1.0.1
