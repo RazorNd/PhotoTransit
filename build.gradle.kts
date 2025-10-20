@@ -4,10 +4,8 @@ plugins {
 }
 
 allprojects {
+    version = "0.0.1"
     repositories {
         mavenCentral()
     }
 }
-
-
-version = "0.0.1"

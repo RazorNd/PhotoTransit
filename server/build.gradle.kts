@@ -48,7 +48,9 @@ subprojects {
     }
 
     tasks.withType<BootBuildImage> {
-        imageName = "ghcr.io/razornd/phototransit-${project.name}:${project.version}"
+        val dockerImageTag: String? by project
+
+        imageName = "ghcr.io/razornd/phototransit-${project.name}:${dockerImageTag ?: version}"
 
         docker {
             publishRegistry {
