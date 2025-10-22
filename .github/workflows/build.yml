@@ -53,6 +53,7 @@ jobs:
 
   build-native:
     strategy:
+      fail-fast: false
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
     runs-on: ${{ matrix.os }}
@@ -62,6 +63,7 @@ jobs:
         with:
           distribution: 'liberica'
           java-version: '25'
+          java-package: 'jdk+fx'
           cache: gradle
       - uses: gradle/actions/setup-gradle@v4
       - name: macOS CLT
@@ -81,22 +83,6 @@ jobs:
         with:
           name: phototransit-cli-${{ runner.os }}
           path: cli/phototransit-cli/build/native/nativeCompile/*
-      - name: Send Telegram Notification (for Success)
-        if: success()
-        uses: appleboy/telegram-action@v1.0.1
-        with:
-          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          to: ${{ secrets.TELEGRAM_CHAT_ID }}
-          message: |
-            🔨 Native apps for '${{ runner.os }}' compiled.
-      - name: Send Telegram Notification (for Success)
-        if: failure()
-        uses: appleboy/telegram-action@v1.0.1
-        with:
-          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          to: ${{ secrets.TELEGRAM_CHAT_ID }}
-          message: |
-            🚨 Native apps for '${{ runner.os }}' compilation failed.
 
 
   dependency-submission:
