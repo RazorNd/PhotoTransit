@@ -77,7 +77,7 @@ jobs:
           # На GitHub Windows runner уже есть VS Build Tools; убедимся в dev env
           echo "VSINSTALLDIR=$env:VSINSTALLDIR"
       - name: Build native
-        run: ./gradlew :cli:nativeCompile
+        run: ./gradlew nativeCompile -p cli
       - name: Upload 'phototransit-cli' artifact
         uses: actions/upload-artifact@v4
         with:
