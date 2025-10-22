@@ -59,7 +59,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
-      - uses: graalvm/setup-graalvm@v1.4.1
+      - uses: RazorNd/setup-graalvm@main
         with:
           distribution: 'liberica'
           java-version: '25'
