@@ -23,6 +23,7 @@ class OAuth2SecurityConfiguration {
             cors { }
             with(authorizationServer()) {
                 securityMatcher(endpointsMatcher)
+                oidc { }
                 deviceVerificationEndpoint {
                     it.errorResponseHandler(SimpleUrlAuthenticationFailureHandler("/oauth2/device_verification?error"))
                     it.deviceVerificationResponseHandler(SimpleUrlAuthenticationSuccessHandler("/success-authorization"))

@@ -1,0 +1,37 @@
+phototransit:
+  base-url: https://phototransit.razornd.ru/
+
+
+oauth2:
+  identity-provider:
+    url: https://auth.phototransit.razornd.ru/
+    client:
+      secret: 'changeme'
+
+spring:
+  application.name: phototransit-cli
+  main:
+    banner-mode: off
+
+  security:
+    oauth2:
+      client:
+        provider:
+          phototransit:
+            issuer-uri: ${oauth2.identity-provider.url}
+
+        registration:
+          phototransit-cli:
+            provider: phototransit
+            client-id: phototransit-cli
+            client-secret: '${oauth2.identity-provider.client.secret}'
+            client-authentication-method: client_secret_post
+            authorization-grant-type: urn:ietf:params:oauth:grant-type:device_code
+            scope: origin-store:photo:upload
+
+logging:
+  pattern:
+    console: '%clr(%d{HH:mm:ss.SS}){magenta} [%clr(%5p){}] %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx'
+  level:
+    root: warn
+    ru.razornd.phototransit: info

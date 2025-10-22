@@ -1,0 +1,16 @@
+{
+  "properties": [
+    {
+      "name": "oauth2.identity-provider.url",
+      "description": "Url to identity provider.",
+      "type": "java.lang.String",
+      "defaultValue": "http://authorization"
+    },
+    {
+      "name": "oauth2.identity-provider.client.secret",
+      "description": "Client secret for identity provider.",
+      "type": "java.lang.String",
+      "defaultValue": "changeme"
+    }
+  ]
+}
