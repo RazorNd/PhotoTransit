@@ -1,0 +1,43 @@
+name: Build native components
+
+on:
+  release:
+    types: [ created ]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: RazorNd/setup-graalvm@main
+        with:
+          distribution: 'liberica'
+          java-version: '25'
+          java-package: 'jdk+fx'
+          cache: gradle
+      - uses: gradle/actions/setup-gradle@v4
+      - name: macOS CLT
+        if: runner.os == 'macOS'
+        run: |
+          xcode-select -p >/dev/null || xcode-select --install
+      - name: Windows MSVC env
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          # На GitHub Windows runner уже есть VS Build Tools; убедимся в dev env
+          echo "VSINSTALLDIR=$env:VSINSTALLDIR"
+      - name: Build native
+        run: ./gradlew nativeCompile -p cli
+      - name: Upload 'phototransit-cli' artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: cli/phototransit-cli/build/native/nativeCompile/phototransit-cli
+          asset_name: phototransit-cli-${{ runner.os }}
+          asset_content_type: application/octet-stream
