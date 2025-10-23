@@ -10,3 +10,13 @@ allprojects {
         mavenCentral()
     }
 }
+
+val copyScreenshoots = tasks.register<Copy>("copyScreenshoots") {
+    from(subprojects.map { it.layout.buildDirectory.dir("reports/screenshots") })
+    into(layout.buildDirectory.dir("reports/screenshots"))
+    dependsOn(subprojects.mapNotNull { it.tasks.findByName("test") })
+}
+
+tasks.register("test") {
+    dependsOn(copyScreenshoots)
+}
