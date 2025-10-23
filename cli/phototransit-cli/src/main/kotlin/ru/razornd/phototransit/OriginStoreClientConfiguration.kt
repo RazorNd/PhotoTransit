@@ -3,6 +3,7 @@ package ru.razornd.phototransit
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.security.authentication.AbstractAuthenticationToken
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager
 import org.springframework.security.oauth2.client.web.client.OAuth2ClientHttpRequestInterceptor
 import org.springframework.security.oauth2.client.web.client.RequestAttributeClientRegistrationIdResolver
@@ -22,7 +23,9 @@ class OriginStoreClientConfiguration {
         builder: RestClient.Builder,
         clientManager: OAuth2AuthorizedClientManager
     ): RestClient = builder.baseUrl(properties.baseUrl)
-        .requestInterceptor(OAuth2ClientHttpRequestInterceptor(clientManager))
+        .requestInterceptor(OAuth2ClientHttpRequestInterceptor(clientManager).apply {
+            setPrincipalResolver { SystemUserAuthentication }
+        })
         .requestInitializer {
             RequestAttributeClientRegistrationIdResolver.clientRegistrationId("phototransit-cli").accept(it.attributes)
         }
@@ -35,6 +38,14 @@ class OriginStoreClientConfiguration {
         val proxyFactory = HttpServiceProxyFactory.builderFor(clientAdapter).build()
 
         return proxyFactory.createClient()
+    }
+
+    private object SystemUserAuthentication : AbstractAuthenticationToken(setOf()) {
+        private fun readResolve(): Any = SystemUserAuthentication
+
+        override fun getCredentials(): Any? = null
+
+        override fun getPrincipal(): String = System.getProperty("user.name")
     }
 
 }

@@ -16,6 +16,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
     implementation("org.springframework.shell:spring-shell-starter")
 
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
     implementation(platform(libs.spring.shell.dependencies))
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -56,4 +58,8 @@ tasks.test {
 
 tasks.bootBuildImage {
     enabled = false
+}
+
+tasks.bootJar {
+    launchScript()
 }
