@@ -11,12 +11,7 @@ allprojects {
     }
 }
 
-val copyScreenshoots = tasks.register<Copy>("copyScreenshoots") {
+val copyScreenshoots = tasks.register<Copy>("copyScreenshots") {
     from(subprojects.map { it.layout.buildDirectory.dir("reports/screenshots") })
     into(layout.buildDirectory.dir("reports/screenshots"))
-    dependsOn(subprojects.mapNotNull { it.tasks.findByName("test") })
-}
-
-tasks.register("test") {
-    dependsOn(copyScreenshoots)
 }

@@ -14,11 +14,10 @@ import ru.razornd.phototransit.http.OriginStoreClient
 import ru.razornd.phototransit.http.OriginStoreClient.UploadResult
 import java.nio.file.Path
 import java.nio.file.attribute.FileTime
-import java.time.Instant
 import java.util.*
 import kotlin.io.path.createTempFile
+import kotlin.io.path.getAttribute
 import kotlin.io.path.nameWithoutExtension
-import kotlin.io.path.setAttribute
 
 @SpringBootTest(classes = [OriginStoreService::class])
 class OriginStoreServiceTest {
@@ -36,9 +35,7 @@ class OriginStoreServiceTest {
     fun uploadPhoto(@TempDir tempDir: Path) {
         val testFile = createTempFile(tempDir, "test-image", ".jpg")
         val uploadResult = UploadResult(UUID.fromString("3b3831ba-02d1-4284-b2f7-7e8c74c6ccc6"))
-        val createdAt = Instant.parse("2025-01-12T13:43:00Z")
-
-        testFile.setAttribute("creationTime", FileTime.from(createdAt))
+        val createdAt = (testFile.getAttribute("creationTime") as FileTime).toInstant()
 
         mediaTypeResolver.stub {
             on { resolve(any()) } doReturn MediaType.IMAGE_JPEG
