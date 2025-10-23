@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Import
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf
 import org.springframework.security.web.savedrequest.CookieRequestCache
 import org.springframework.security.web.savedrequest.SimpleSavedRequest
@@ -18,6 +19,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.post
 
+@MockitoBean(types = [RegisteredClientRepository::class])
 @WebMvcTest(MainController::class)
 @Import(SecurityConfiguration::class)
 class LoginProcessTest {
