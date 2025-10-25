@@ -21,7 +21,7 @@ import org.springframework.util.MultiValueMap
     properties = [
         "spring.security.user.name=user",
         "spring.security.user.password=password",
-        "logging.level.org.springframework.security=trace"
+        "logging.level.org.springframework.security=debug"
     ]
 )
 @Import(PostgresTestcontainersConfiguration::class, PlaywrightConfiguration::class)

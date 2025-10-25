@@ -7,8 +7,8 @@ INSERT INTO http_session (primary_id,
                           principal_name)
 VALUES (?::UUID,
         ?::UUID,
-        TO_TIMESTAMP(? / 1000.0),
-        TO_TIMESTAMP(? / 1000.0),
+        TO_TIMESTAMP(? / 1000.0) AT TIME ZONE 'UTC',
+        TO_TIMESTAMP(? / 1000.0) AT TIME ZONE 'UTC',
         MAKE_INTERVAL(secs := ?),
-        TO_TIMESTAMP(? / 1000.0),
+        TO_TIMESTAMP(? / 1000.0) AT TIME ZONE 'UTC',
         ?)

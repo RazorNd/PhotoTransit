@@ -7,10 +7,12 @@ import org.springframework.beans.factory.FactoryBean
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.event.EventListener
+import org.springframework.core.annotation.Order
 import org.springframework.core.env.Environment
 import org.springframework.test.context.event.AfterTestExecutionEvent
 import java.nio.file.Paths
 import java.time.Instant
+import kotlin.io.path.createTempDirectory
 
 @TestConfiguration(proxyBeanMethods = false)
 open class PlaywrightConfiguration {
@@ -28,7 +30,15 @@ open class PlaywrightConfiguration {
             override fun getObject(): Page {
                 val port = env.getProperty("local.server.port", "8080")
 
-                return browser.newPage(Browser.NewPageOptions().setBaseURL("http://localhost:$port/")).apply {
+                val context = browser.newContext(
+                    Browser.NewContextOptions()
+                        .setBaseURL("http://localhost:$port/")
+                        .setRecordVideoDir(createTempDirectory())
+                        .setRecordVideoSize(640, 480)
+                        .setViewportSize(640, 480)
+                )
+
+                return context.newPage().apply {
                     setDefaultTimeout(2_000.0)
                 }.also { page = it }
             }
@@ -39,12 +49,10 @@ open class PlaywrightConfiguration {
         }
     }
 
+    @Order(0)
     @EventListener(condition = "#event.testContext.testException != null")
     fun screenshotListener(event: AfterTestExecutionEvent) {
         val page = this.page ?: return
-
-        event.source.testClass
-        event.source.testMethod
 
         val screenshotPath = Paths.get("build/reports/screenshots")
             .resolve(event.source.testClass.name)
@@ -52,6 +60,25 @@ open class PlaywrightConfiguration {
             .resolve("${Instant.now().toEpochMilli()}.png")
 
         page.screenshot(Page.ScreenshotOptions().setPath(screenshotPath))
+    }
+
+    @Order(10)
+    @EventListener(condition = "#event.testContext.testException != null")
+    fun videoListener(event: AfterTestExecutionEvent) {
+        val page = this.page ?: return
+
+        val videoPath = Paths.get("build/reports/videos")
+            .resolve(event.source.testClass.name)
+            .resolve(event.source.testMethod.name)
+            .resolve("${Instant.now().toEpochMilli()}.webm")
+
+        page.video().saveAs(videoPath)
+    }
+
+    @Order(5)
+    @EventListener
+    fun closePageListener(event: AfterTestExecutionEvent) {
+        page?.close()
     }
 
 }

@@ -11,7 +11,22 @@ allprojects {
     }
 }
 
-val copyScreenshoots = tasks.register<Copy>("copyScreenshots") {
+tasks.register<JavaExec>("playwrightInstall") {
+    group = "verification"
+    description = "Install Playwright browsers"
+    classpath = configurations.detachedConfiguration(
+        dependencies.create(libs.playwright.get())
+    )
+    mainClass.set("com.microsoft.playwright.CLI")
+    args = listOf("install", "--with-deps")
+}
+
+tasks.register<Copy>("copyScreenshots") {
     from(subprojects.map { it.layout.buildDirectory.dir("reports/screenshots") })
     into(layout.buildDirectory.dir("reports/screenshots"))
+}
+
+tasks.register<Copy>("copyVideos") {
+    from(subprojects.map { it.layout.buildDirectory.dir("reports/videos") })
+    into(layout.buildDirectory.dir("reports/videos"))
 }

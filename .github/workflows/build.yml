@@ -22,20 +22,30 @@ jobs:
           distribution: 'liberica'
           cache: gradle
       - uses: gradle/actions/setup-gradle@v4
+      - name: Install Playwright dependencies
+        run: ./gradlew playwrightInstall
       - name: Run tests
         run: ./gradlew test --continue
       - uses: test-summary/action@v2
         if: always()
         with:
           paths: '**/build/test-results/test/*.xml'
-      - name: Copy screenshots
+      - name: Copy screenshots & videos
         if: failure()
-        run: ./gradlew copyScreenshots
+        run: ./gradlew copyScreenshots copyVideos
       - uses: actions/upload-artifact@v4
+        name: Upload Screenshots
         if: failure()
         with:
           name: screenshots
           path: build/reports/screenshots/
+          if-no-files-found: 'ignore'
+      - uses: actions/upload-artifact@v4
+        name: Upload Videos
+        if: failure()
+        with:
+          name: videos
+          path: build/reports/videos/
           if-no-files-found: 'ignore'
       - name: Build & Publish Docker Image
         run: |

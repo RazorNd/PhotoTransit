@@ -40,6 +40,7 @@ class SessionConfiguration : BeanClassLoaderAware {
 
         @Value("classpath:/session/queries/create-session-attribute.sql") createSessionAttributeQuery: Resource,
         @Value("classpath:/session/queries/update-session-attribute.sql") updateSessionAttributeQuery: Resource,
+        @Value("classpath:/session/queries/delete-session-attribute.sql") deleteSessionAttributeQuery: Resource,
 
         @Value("classpath:/session/queries/sessions-by-principal.sql") sessionsByPrincipalQuery: Resource,
         @Value("classpath:/session/queries/delete-sessions-by-expiry-time.sql") deleteSessionsByExpiryTimeQuery: Resource,
@@ -60,6 +61,7 @@ class SessionConfiguration : BeanClassLoaderAware {
 
         repository.setCreateSessionAttributeQuery(createSessionAttributeQuery.getContentAsString(Charsets.UTF_8))
         repository.setUpdateSessionAttributeQuery(updateSessionAttributeQuery.getContentAsString(Charsets.UTF_8))
+        repository.setDeleteSessionAttributeQuery(deleteSessionAttributeQuery.getContentAsString(Charsets.UTF_8))
 
         repository.setListSessionsByPrincipalNameQuery(sessionsByPrincipalQuery.getContentAsString(Charsets.UTF_8))
 
