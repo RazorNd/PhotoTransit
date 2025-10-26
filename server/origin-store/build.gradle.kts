@@ -5,6 +5,8 @@ dependencies {
     implementation(platform(libs.spring.cloud.aws.dependencies))
     implementation("io.awspring.cloud:spring-cloud-aws-starter-s3")
 
+    implementation(libs.kim)
+
     runtimeOnly("org.flywaydb:flyway-core")
     runtimeOnly("org.flywaydb:flyway-database-postgresql")
     runtimeOnly("org.postgresql:postgresql")

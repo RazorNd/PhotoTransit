@@ -89,7 +89,7 @@ open class JdbcPhotoRepositoryTest {
     fun saveFile(@Autowired connection: AssertDbConnection) {
         val new = PhotoFile.New(
             PhotoId("597e243d-002a-4a23-8540-f54d30fb664a"),
-            PhotoType.PROCESSED,
+            PhotoType.MASTER,
             "path/to/file.tiff"
         )
 

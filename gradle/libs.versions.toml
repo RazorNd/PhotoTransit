@@ -8,6 +8,7 @@ spring-shell = "3.4.1"
 
 spring-cloud-aws = "3.4.0"
 jte = "3.2.1"
+kim = "0.26.2"
 
 graalvm-buildtools-native = "0.11.2"
 
@@ -25,6 +26,7 @@ spring-shell-dependencies = { group = "org.springframework.shell", name = "sprin
 spring-cloud-aws-dependencies = { group = "io.awspring.cloud", name = "spring-cloud-aws-dependencies", version.ref = "spring-cloud-aws" }
 jte-spring-starter = { group = "gg.jte", name = "jte-spring-boot-starter-3", version.ref = "jte" }
 jte-kotlin = { group = "gg.jte", name = "jte-kotlin", version.ref = "jte" }
+kim = { group = "com.ashampoo", name = "kim", version.ref = "kim" }
 
 assertj-db = { group = "org.assertj", name = "assertj-db", version.ref = "assertj-db" }
 mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito-kotlin" }

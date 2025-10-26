@@ -10,3 +10,7 @@
 # Binary files should be left untouched
 *.jar           binary
 
+.jpeg           binary
+.jpg            binary
+.tiff           binary
+.heic           binary
