@@ -4,15 +4,13 @@ import org.springframework.core.io.PathResource
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
 import ru.razornd.phototransit.http.OriginStoreClient
+import ru.razornd.phototransit.http.OriginStoreClient.PhotoType.MASTER
 import ru.razornd.phototransit.http.OriginStoreClient.PhotoType.ORIGINAL
-import ru.razornd.phototransit.http.OriginStoreClient.PhotoType.PROCESSED
 import java.nio.file.Path
-import java.nio.file.attribute.BasicFileAttributes
 import java.util.*
 import kotlin.io.path.isDirectory
-import kotlin.io.path.nameWithoutExtension
+import kotlin.io.path.name
 import kotlin.io.path.notExists
-import kotlin.io.path.readAttributes
 
 sealed class CliApplicationException(message: String) : RuntimeException(message)
 
@@ -40,13 +38,10 @@ class OriginStoreService(
 
         if (!mediaType.isImage) throw UnsupportedFileTypeException("Unsupported file type for '$file': $mediaType")
 
-        val fileAttributes = path.readAttributes<BasicFileAttributes>()
-
         val uploadPhoto = client.uploadPhoto(
             PathResource(path),
-            path.nameWithoutExtension,
-            fileAttributes.creationTime().toInstant(),
-            if (original) ORIGINAL else PROCESSED,
+            path.name,
+            if (original) ORIGINAL else MASTER,
             mediaType
         )
 

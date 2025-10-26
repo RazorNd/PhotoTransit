@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.service.annotation.HttpExchange
 import org.springframework.web.service.annotation.PostExchange
-import java.time.Instant
 import java.util.*
 
 @RegisterReflection(memberCategories = [MemberCategory.INTROSPECT_PUBLIC_METHODS])
@@ -26,14 +25,13 @@ interface OriginStoreClient {
     @PostExchange("photos")
     fun uploadPhoto(
         @RequestBody photo: Resource,
-        @RequestParam name: String,
-        @RequestParam("created_at") createdAt: Instant,
+        @AttachmentName filename: String,
         @RequestParam type: PhotoType,
         @RequestHeader("Content-Type") contentType: MediaType
     ): UploadResult
 
     enum class PhotoType {
-        ORIGINAL, PROCESSED
+        ORIGINAL, MASTER
     }
 
     @RegisterReflection(

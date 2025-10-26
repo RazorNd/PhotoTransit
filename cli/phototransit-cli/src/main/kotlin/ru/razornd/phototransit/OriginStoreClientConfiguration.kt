@@ -11,6 +11,7 @@ import org.springframework.web.client.RestClient
 import org.springframework.web.client.support.RestClientAdapter
 import org.springframework.web.service.invoker.HttpServiceProxyFactory
 import org.springframework.web.service.invoker.createClient
+import ru.razornd.phototransit.http.AttachmentNameArgumentResolver
 import ru.razornd.phototransit.http.OriginStoreClient
 
 @EnableConfigurationProperties(PhotoTransitProperties::class)
@@ -35,7 +36,9 @@ class OriginStoreClientConfiguration {
     fun originStoreClient(originStoreRestClient: RestClient): OriginStoreClient {
         val clientAdapter = RestClientAdapter.create(originStoreRestClient)
 
-        val proxyFactory = HttpServiceProxyFactory.builderFor(clientAdapter).build()
+        val proxyFactory = HttpServiceProxyFactory.builderFor(clientAdapter)
+            .customArgumentResolver(AttachmentNameArgumentResolver())
+            .build()
 
         return proxyFactory.createClient()
     }
